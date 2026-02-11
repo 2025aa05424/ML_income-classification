@@ -55,7 +55,7 @@ Each model was evaluated using the following metrics:
 | Decision Tree | 0.8155 | 0.7528 | 0.6299 | 0.6278 | 0.6289 | 0.5061 |
 | KNN | 0.8258 | 0.8497 | 0.6667 | 0.6005 | 0.6319 | 0.5194 |
 | Naive Bayes | 0.7910 | 0.8369 | 0.6681 | 0.3189 | 0.4317 | 0.3559 |
-| Random Forest | 0.8550 | 0.9104 | 0.7467 | 0.6318 | 0.6845 | 0.5946 |
+| Random Forest | 0.8571 | 0.9161 | 0.8181 | 0.5479 | 0.6563 | 0.5888 |
 | XGBoost | 0.8722 | 0.9338 | 0.7903 | 0.6625 | 0.7208 | 0.6429 |
 
 ---
@@ -75,7 +75,7 @@ Achieved decent performance but slightly lower than Logistic Regression. Perform
 Fast and computationally efficient but weakest performer. The low recall indicates difficulty in capturing higher income cases due to the independence assumption between features.
 
 ### Random Forest
-Improved performance compared to a single Decision Tree. Ensemble averaging reduced overfitting and improved stability.
+Improved performance compared to a single Decision Tree. The ensemble approach reduced overfitting and increased predictive stability.
 
 ### XGBoost
 Best performing model across most metrics. Gradient boosting effectively captures feature interactions and improves generalization.
@@ -93,3 +93,4 @@ The application allows users to:
 - View confusion matrix  
 
 The app is deployed using Streamlit Community Cloud.
+
