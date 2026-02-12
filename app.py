@@ -50,7 +50,7 @@ if uploaded_file is not None:
 
         # Encode target safely
         if y.dtype == "object":
-        y = y.map({"<=50K": 0, ">50K": 1})
+           y = y.map({"<=50K": 0, ">50K": 1})
         
         # One-hot encode
         X = pd.get_dummies(X, drop_first=True)
@@ -94,7 +94,6 @@ if uploaded_file is not None:
         st.subheader("Confusion Matrix")
 
         cm = confusion_matrix(y, y_pred)
-
         cm_df = pd.DataFrame(
         cm,
         index=["Actual <=50K", "Actual >50K"],
@@ -102,4 +101,5 @@ if uploaded_file is not None:
         )
 
      st.table(cm_df)
+
 
