@@ -48,9 +48,10 @@ if uploaded_file is not None:
         X = df.drop("income", axis=1)
         y = df["income"]
 
-        # Encode target
+        # Encode target safely
+        if y.dtype == "object":
         y = y.map({"<=50K": 0, ">50K": 1})
-
+        
         # One-hot encode
         X = pd.get_dummies(X, drop_first=True)
 
@@ -91,4 +92,14 @@ if uploaded_file is not None:
         st.write("MCC:", matthews_corrcoef(y, y_pred))
 
         st.subheader("Confusion Matrix")
-        st.write(confusion_matrix(y, y_pred))
+
+        cm = confusion_matrix(y, y_pred)
+
+        cm_df = pd.DataFrame(
+        cm,
+        index=["Actual <=50K", "Actual >50K"],
+        columns=["Predicted <=50K", "Predicted >50K"]
+        )
+
+     st.table(cm_df)
+
