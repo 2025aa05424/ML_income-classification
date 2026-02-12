@@ -13,7 +13,6 @@ from sklearn.metrics import (
 )
 
 st.title("Income Classification App")
-
 st.write("Upload a test CSV file and select a model to evaluate.")
 
 # Load models
@@ -25,6 +24,9 @@ random_forest = joblib.load("models/random_forest.pkl")
 xgboost = joblib.load("models/xgboost.pkl")
 scaler = joblib.load("models/scaler.pkl")
 
+# Load training columns (VERY IMPORTANT)
+training_columns = joblib.load("models/training_columns.pkl")
+
 models = {
     "Logistic Regression": logistic,
     "Decision Tree": decision_tree,
@@ -35,7 +37,6 @@ models = {
 }
 
 uploaded_file = st.file_uploader("Upload CSV file", type=["csv"])
-
 model_choice = st.selectbox("Select Model", list(models.keys()))
 
 if uploaded_file is not None:
@@ -53,19 +54,35 @@ if uploaded_file is not None:
         # One-hot encode
         X = pd.get_dummies(X, drop_first=True)
 
-        # Align columns with training
+        # ----------- COLUMN ALIGNMENT FIX --------------
+
+        # Add missing columns
+        for col in training_columns:
+            if col not in X.columns:
+                X[col] = 0
+
+        # Remove extra columns
+        extra_cols = set(X.columns) - set(training_columns)
+        if extra_cols:
+            X = X.drop(columns=extra_cols)
+
+        # Reorder columns exactly as training
+        X = X[training_columns]
+
+        # -----------------------------------------------
+
         model = models[model_choice]
 
+        # Scale only if required
         if model_choice in ["Logistic Regression", "KNN"]:
-            X = scaler.transform(X)
-            y_pred = model.predict(X)
-            y_prob = model.predict_proba(X)[:, 1]
+            X_scaled = scaler.transform(X)
+            y_pred = model.predict(X_scaled)
+            y_prob = model.predict_proba(X_scaled)[:, 1]
         else:
             y_pred = model.predict(X)
             y_prob = model.predict_proba(X)[:, 1]
 
         st.subheader("Evaluation Metrics")
-
         st.write("Accuracy:", accuracy_score(y, y_pred))
         st.write("Precision:", precision_score(y, y_pred))
         st.write("Recall:", recall_score(y, y_pred))
