@@ -100,6 +100,7 @@ if uploaded_file is not None:
         columns=["Predicted <=50K", "Predicted >50K"]
         )
 
-     st.table(cm_df)
+        st.table(cm_df)
+
 
 
