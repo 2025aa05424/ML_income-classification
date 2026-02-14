@@ -62,23 +62,23 @@ Each model was evaluated using the following metrics:
 
 ## Observations on Model Performance
 
-### Logistic Regression
-Performed strongly with high AUC and balanced precision-recall. It handles this dataset well due to relatively linear separability of features.
+### Logistic Regression  
+Logistic Regression achieved strong performance with 85.48% accuracy and an AUC of 0.9132, indicating strong class separability. Precision (0.7504) is higher than recall (0.6245), meaning the model is relatively conservative in predicting high-income (>50K) cases — when it predicts positive, it is usually correct, but it misses some true high-income individuals. The MCC (0.5928) confirms stable performance even under class imbalance. Logistic Regression performs well because several demographic and employment features exhibit approximately linear relationships with the log-odds of income class.
 
-### Decision Tree
-Showed moderate performance but lower AUC compared to ensemble methods. Single decision trees may overfit and produce less stable predictions.
+### Decision Tree  
+The Decision Tree achieved 81.55% accuracy with the lowest AUC (0.7528) among all models, indicating weaker probability ranking ability. Precision and recall are balanced (~0.63), suggesting unbiased but moderate-quality predictions. The MCC of 0.5061 reflects weaker correlation with true labels compared to ensemble methods. Single decision trees are prone to overfitting and sensitive to data variations, which explains the performance gap compared to ensemble-based approaches.
 
-### K-Nearest Neighbors
-Achieved decent performance but slightly lower than Logistic Regression. Performance depends on proper feature scaling.
+### K-Nearest Neighbors (KNN)  
+KNN achieved 82.58% accuracy with an AUC of 0.8497, showing moderate discriminative ability. Precision (0.6667) slightly exceeds recall (0.6005), meaning some high-income cases are missed. The model's performance depends heavily on the choice of k and proper feature scaling. Since KNN relies on distance calculations across all training samples, prediction can be computationally expensive. The moderate results indicate that neighborhood-based classification captures local patterns but does not outperform more structured models.
 
-### Naive Bayes
-Fast and computationally efficient but weakest performer. The low recall indicates difficulty in capturing higher income cases due to the independence assumption between features.
+### Naive Bayes  
+Naive Bayes was the weakest performer with 79.10% accuracy and a notably low recall (0.3189), meaning it correctly identifies only about 32% of actual high-income individuals. This results in the lowest F1 score (0.4317) and MCC (0.3559). The poor recall stems from the strong feature independence assumption, which does not hold well for demographic data where features like education, occupation, age, and working hours are correlated. Although computationally efficient and fast to train, Naive Bayes sacrifices predictive quality in this dataset.
 
-### Random Forest
-Improved performance compared to a single Decision Tree. The ensemble approach reduced overfitting and increased predictive stability.
+### Random Forest (Ensemble)  
+Random Forest achieved strong performance with 85.71% accuracy and an AUC of 0.9161, closely matching Logistic Regression. It achieved the highest precision (0.8181) among all models, meaning its positive predictions are highly reliable. However, recall (0.5479) is lower, indicating it misses a substantial portion of high-income cases. The ensemble of multiple decision trees reduces overfitting observed in a single Decision Tree and provides stable, robust predictions. Random Forest balances accuracy and robustness effectively.
 
-### XGBoost
-Best performing model across most metrics. Gradient boosting effectively captures feature interactions and improves generalization.
+### XGBoost (Ensemble)  
+XGBoost was the best-performing model across all evaluation metrics, achieving 87.22% accuracy, the highest AUC (0.9338), the best F1 score (0.7208), and the highest MCC (0.6429). It demonstrates an excellent balance between precision (0.7903) and recall (0.6625), making it the most effective model at identifying high-income individuals without sacrificing overall accuracy. The gradient boosting framework iteratively corrects previous errors and captures complex non-linear feature interactions. Due to its superior performance across all metrics, XGBoost is the most suitable model for deployment.
 
 ---
 
@@ -93,5 +93,6 @@ The application allows users to:
 - View confusion matrix  
 
 The app is deployed using Streamlit Community Cloud.
+
 
 
