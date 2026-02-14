@@ -80,6 +80,12 @@ Random Forest achieved strong performance with 85.71% accuracy and an AUC of 0.9
 ### XGBoost (Ensemble)  
 XGBoost was the best-performing model across all evaluation metrics, achieving 87.22% accuracy, the highest AUC (0.9338), the best F1 score (0.7208), and the highest MCC (0.6429). It demonstrates an excellent balance between precision (0.7903) and recall (0.6625), making it the most effective model at identifying high-income individuals without sacrificing overall accuracy. The gradient boosting framework iteratively corrects previous errors and captures complex non-linear feature interactions. Due to its superior performance across all metrics, XGBoost is the most suitable model for deployment.
 
+## Final Model Recommendation
+
+Based on overall performance across Accuracy, AUC, F1 Score, and MCC, XGBoost is the recommended model for deployment. It consistently outperforms other models in both classification quality and probability ranking ability while maintaining a good balance between precision and recall.
+
+Although Random Forest and Logistic Regression also show strong and stable performance, XGBoost achieves the highest predictive power and best overall balance across evaluation metrics. Therefore, it is the most suitable model for real-world deployment in this problem setting.
+
 ---
 
 ## Streamlit Deployment
@@ -93,6 +99,7 @@ The application allows users to:
 - View confusion matrix  
 
 The app is deployed using Streamlit Community Cloud.
+
 
 
 
